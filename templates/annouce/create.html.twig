@@ -5,5 +5,59 @@
 {% block body %}
 
     <h1>Create Announce</h1>
+    <a href="{{path('app_annouce')}}">Retour</a>
+
+    {{form_start(formulaire)}}
+
+        {{form_widget(formulaire)}}
+        <input type="submit" value="Valider">
+
+    {{form_start(formulaire)}}
+
+
+    <!--<form action="",method="post">
+        <div style="text-align: center">
+            <div>
+                <label for="title">Titre</label><br>
+                <input type="text" name="title" id="title">
+            </div>
+            <div>
+                <label for="slug">Slug</label><br>
+                <input type="text" name="slug" id="slug">
+            </div>
+            <div>
+                <label for="description">Description</label><br>
+                <textarea name="description" id="description" cols="30" rows="5"></textarea>
+            </div>
+            
+            <div>
+                <label for="price">Prix</label><br>
+                <input type="number" name="price" id="price">
+            </div>
+            <div>
+                <label for="address">Adresse</label><br>
+                <input type="text" name="address" id="address">
+            </div>
+            <div>
+                <label for="coverImage">Image Couverture</label><br>
+                <input type="file" name="coverImage" id="coverImage">
+            </div>
+            <div>
+                <label for="rooms">Nombre de chambres</label><br>
+                <input type="number" name="rooms" id="rooms">
+            </div><br>
+            <div>
+                <select name="isAvailable" id="isAvailable">
+                    <option value="available">Disponible</option>
+                    <option value="noAvailable">indisponible</option>
+                </select>
+            </div>
+            <div>
+                <label for="createdAd">Date de Publication</label><br>
+                <input type="date" name="createdAd" id="createdAd">
+            </div><br>
+            <button>Create Announce</button>
+        </div>  
+    </form>-->
 
 {% endblock %}

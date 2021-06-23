@@ -36,6 +36,19 @@ class AnnouceController extends AbstractController
     }
 
     /**
+     * @Route("/announce/{id<[0-9]+>}",name="app_announce_show",methods={"GET"})
+     */
+
+    public function show(AnnounceRepository $repo, int $id): Response
+    {
+        $announce = $repo->find($id);
+        return $this->render('annouce/show.html.twig',[
+            
+            'announce' => $announce
+        ]);
+    }
+
+    /**
      * @Route("/announce/create", name="create_annouce",methods={"GET","POST"})
      */
 

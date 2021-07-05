@@ -35,7 +35,11 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Les annonces</a>
+                    <a class="nav-link" href="{{ path('app_annouce_index')}}">Les annonces</a>
+                  </li>
+
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('create_annouce')}}">Creer une Annonce</a>
                   </li>
                   
                   
@@ -56,6 +60,7 @@
     <main>
         {% block body %}{% endblock %}
     </main>
+    
 
         	<footer class="mt-5 bg-light py-4 text-center">
                 <p>Copyright &copy simplon.co !!</p>

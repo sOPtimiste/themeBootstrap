@@ -3,46 +3,58 @@
 {% block title %}Details Announce !{% endblock %}
 
 {% block body %}
-
-<a href="{{path('app_annouce')}}">Back</a>
-
-    <div class="container my-5">
     
-
-    <div class="row">{# card bigin #}
-      
-      <div class="col-md-4">
-        
-          <div class="card mb-3">
-          
-            <h4 class="card-header">{{announce.rooms}} {{announce.title}} à {{announce.price}} F / mois</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-              <rect width="100%" height="100%" fill="#868e96"></rect>
-              <text x="50%" y="50%" fill="#dee2e6" dy=".3em"></text>
-              {{announce.coverImage}}
-            </svg>
+    
+<div class="container">
+        <div class="row mt-5">
+            <h6 class="display-4">Détails de l'annonce</h6>
+        </div>
+      <div class="row">
+        <div class="col-sm-8 mb-4">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="{{announce.coverImage}}"
+              alt="Annonce 1"
+            />
             <div class="card-body">
-              <p class="card-text">{{ announce.description }}</p>
+              <h5 class="card-title">{{announce.title}}</h5>
+              <p class="card-text">
+               {{announce.rooms}} chambres  
+              </p>
+              <hr />
+              <span class="float-left btn btn-sm btn-outline-danger disabled">{{announce.price|format_number}} FCFA</span><br>
+              <span class="float-left btn btn-sm disabled ">{{announce.introduction}} : ref 1552</span>
+              <span class="float-left btn btn-sm disabled">Depuis: {{announce.createdAt|format_datetime('full','short',locale='fr')}}</span>
+              <a href="#" class="btn btn-sm btn-primary float-right">Réserver</a
+              >
             </div>
-            <div class="card-body">
-              <a href="#" class="card-link btn btn-primary">Détails...</a>
-            </div>
-            <div class="card-footer text-muted text-center" >
-              {{announce.createdAt|date("m/d/Y")}}
-              <i class="fas fa-map-marker-alt"></i>
-               <strong>{{ announce.address }}</strong>
-            </div>
-          
           </div>
+        </div>
+        <!-- -------------------------------------------- -->
+        <div class="col">
+          <div class="card text-center" style="width: 18rem">
+            <img style="width: 8em; height:8em;" class="card-img-top rounded-circle align-self-center" src="https://api.randomuser.me/portraits/men/30.jpg" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title">The Customer</h5>
+              <p class="card-text">
+                {{announce.description}}.
+              </p>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action bg-primary text-white"><i class="fas fa-mobile-alt mr-2"></i>77181 88 77</a>
+                <span class="list-group-item list-group-item-action">
+                    <a href="#"><i class="fab fa-facebook-square fa-2x text-primary mr-1"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp fa-2x text-success mr-1"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-2x text-primary mr-1"></i></a>
+                    <a href="#"><i class="fab fa-instagram fa-2x text-warning mr-1"></i></a>
+                    <a href="#"><i class="fab fa-youtube fa-2x text-danger"></i></a>
+                </span>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
-      
-{# card end #}
-    </div>
-    
-    
-</div>
-
-
-    
-
 {% endblock %}
+
+

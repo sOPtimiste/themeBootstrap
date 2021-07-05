@@ -4,16 +4,8 @@
 
 {% block body %}
 
-    <h1>Ajouter Une Annonce</h1>
+    <h1>Modifier une Annonce</h1>
 
-    {% for message in app.flashes('notice') %}
-
-        <div class="alert alert-success">
-
-            {{ message }}
-        </div>
-        
-    {% endfor %}
 
     
     <div class="container my-5">{#begin of div container#}
@@ -70,7 +62,7 @@
         
         {#<input type="submit" value="Valider">#}
         <div class="d-flex justify-content-center my-5">
-            <button type="submit" class="btn btn-primary">Ajouter Une annonce</button>
+            <button type="submit" class="btn btn-primary">Modifier Une annonce</button>
         </div>
         {{form_end(form)}}
         

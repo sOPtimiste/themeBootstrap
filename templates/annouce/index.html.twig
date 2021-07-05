@@ -4,46 +4,67 @@
 
 {% block body %}
 
-<a href="{{path('create_annouce')}}">Create</a>
 
-<div class="container my-5">
-    
+  <center><h1>nous avons {{announces| length}} Annonces</h1></center>
 
-    <div class="row">{# card bigin #}
+
+     {% for message in app.flashes('notice') %}
+
+        <div class="alert alert-success">
+
+            {{ message }}
+        </div>
         
-      
-       {% for announce in announces %} 
-      
-      <div class="col-md-4">
-        
-          <div class="card mb-3">
-          
-            <h4 class="card-header">{{announce.rooms}} {{announce.title}} à {{announce.price}} F / mois</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-              <rect width="100%" height="100%" fill="#868e96"></rect>
-              <text x="50%" y="50%" fill="#dee2e6" dy=".3em"></text>
-              {{announce.coverImage}}
-            </svg>
-            <div class="card-body">
-              <p class="card-text">{{ announce.description }}</p>
-            </div>
-            <div class="card-body">
-              <a href="{{path('app_announce_show',{id: announce.id})}}" class="card-link btn btn-primary">Détails...</a>
-            </div>
-            <div class="card-footer text-muted text-center" >
-              {{announce.createdAt|date("m/d/Y")}}
-              <i class="fas fa-map-marker-alt"></i>
-               <strong>{{ announce.address }}</strong>
-            </div>
-          
-          </div>
-    </div>
-    {% endfor %}
-      
-{# card end #}
-    </div>
-    
-    
-</div>
+      {% endfor %}
 
+
+<div class="container my-5">{# start container #}
+  <div class="row">{# start row #}
+
+    {% for announce in announces %}
+      
+
+  <div class="col-sm-4 mb-4">{# start col #}
+      <div class="card" style="width: 18rem">{# start card#}
+            <img
+              class="card-img-top"
+              src="{{ announce.coverImage }}"
+              alt="Annonce 1"
+            />
+            <div class="card-body">{# satart card-body  #}
+              <h5 class="card-title">{{ announce.title }}</h5>
+              <p class="card-text">
+                {{ announce.description }}
+              </p>
+              <hr />
+              <span class="float-left btn btn-sm btn-outline-danger disabled"
+                >{{announce.price|number_format(0, ',', ' ') }} FCFA</span
+              >
+              <span class="float-left btn btn-sm text-center disabled"
+                >depuis {{announce.createdAt|format_datetime('short','none',locale='fr')}}</span
+              >
+              <a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-sm btn-primary float-right"
+                >Detail...</a
+              >
+              <a href="{{path('app_announce_update',{id: announce.id})}}" class="btn btn-sm btn-success float-right"
+                >Update</a
+              >
+              <a href="{{path('app_announce_delete',{id: announce.id})}}" class="btn btn-sm btn-danger float-right"
+                >Delete</a
+              >
+            </div>{# end card-body #}
+      </div>{# end card #}
+  </div>{# end col #}
+  {% endfor %}  
+</div>{# end row #}
+  
+
+</div>{# end container #}
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination d-flex justify-content-center">
+     {{ knp_pagination_render(announces) }}
+  </ul>
+</nav>
 {% endblock %}
+        

@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Announce;
 use App\Entity\Comment;
 use App\Entity\Image;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Cocur\Slugify\Slugify;
@@ -32,6 +33,10 @@ class AppFixtures extends Fixture
             $announce->setRooms(mt_rand(1,8));
             $announce->setIsAvailable(mt_rand(0,1));
             $announce->setCreatedAt($faker->dateTimeBetween('-3 month','now'));
+            $user = new User();
+            $user->setEmail($faker->email());
+            $user->setUsername($faker->name());
+            $announce->setUser($user);
 
             for($j = 0; $j < mt_rand(0,7); $j++){
                 $comment = new Comment();

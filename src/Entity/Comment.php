@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -88,12 +89,17 @@ class Comment
     {
         return $this->createdAt;
     }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * Undocumented function
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * @param \DateTimeInterface $createdAt
+     * @return self
+     */
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new  \DateTime();
 
-        return $this;
     }
 
     public function getAnnounce(): ?Announce

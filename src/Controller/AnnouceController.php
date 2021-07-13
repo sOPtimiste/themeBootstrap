@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Announce;
+use App\Entity\Comment;
 use App\Form\AnnounceType;
+use App\Form\CommentType;
 use App\Repository\AnnounceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -38,110 +40,40 @@ class AnnouceController extends AbstractController
     }
 
     /**
-     * @Route("/announce/{id<[0-9]+>}",name="app_announce_show",methods={"GET"})
+     * @Route("/announce/{id<[0-9]+>}",name="app_announce_show")
      */
 
-    public function show(AnnounceRepository $repo, int $id): Response
+    public function show(Announce $announce,Request $request): Response
     {
-        $announce = $repo->find($id);
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class,$comment);
+
+        $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        $em = $this->getDoctrine()->getManager();
+        $announce->addComment($comment);
+        $em->persist($comment);
+
+        $em->flush();
+
+        return $this->redirectToRoute('app_announce_show',[
+            
+            'id' => $announce->getId()
+        ]);
+    }
+
+        //$announce = $repo->find($id);
         //dd($announce);
         return $this->render('annouce/show.html.twig',[
             
-            'announce' => $announce
-        ]);
-    }
-
-    /**
-     * @Route("/create", name="create_annouce",methods={"GET","POST"})
-     */
-
-    public function create(Request $request,EntityManagerInterface $em): Response
-    {
-        $announce = new Announce();
-
-        $form = $this->createForm(AnnounceType::class,$announce);
-
-         $form->handleRequest($request);
-
-         if($form->isSubmitted() && $form->isValid()){
-
-            $em->persist($announce); 
-
-
-            $em->flush();
-
-            $this->addFlash('notice','Insertion reussie ');
-
-            return $this->redirectToRoute('app_annouce_index');
-            
-
-         }
-        
-
-        return $this->render('annouce/create.html.twig',[
-
+            'announce' => $announce,
             'form' => $form->createView()
-        ]);
 
-
-        
-
-    }
-
-
-    /**
-     * @Route("/update/{id<[0-9]+>}", name="app_announce_update",methods={"GET","POST"})
-     */
-
-    public function update(Request $request,EntityManagerInterface $em,AnnounceRepository $repo, int $id): Response
-    {
-        $announce = $repo->find($id);
-
-        $form = $this->createForm(AnnounceType::class,$announce);
-
-         $form->handleRequest($request);
-
-         if($form->isSubmitted() && $form->isValid()){
-
-            $em->persist($announce); 
-
-
-            $em->flush();
-
-            
-
-            return $this->redirectToRoute('app_annouce_index');
-
-            $this->addFlash('notice','Modification reussie ');
-            
-         }
-        
-        return $this->render('annouce/update.html.twig',[
-
-            'form' => $form->createView(),
-            'announce' => $announce 
         ]);
     }
 
-
-
-     /**
-     * @Route("/announce/{id<[0-9]+>}",name="app_announce_delete",methods={"GET"})
-     */
-
-    public function delete(AnnounceRepository $repo, int $id,EntityManagerInterface $em): Response
-    {
-        $announce = $repo->find($id);
-
-        $em->remove($announce);
-        $em->flush();
-
         
-
-        return $this->redirectToRoute('app_annouce_index');
-
-        $this->addFlash('notice','Suppression reussie ');
-            
-        
-    }
 }

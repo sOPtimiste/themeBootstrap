@@ -2,15 +2,21 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 use App\Repository\AnnounceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=AnnounceRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Announce
 {
@@ -47,9 +53,16 @@ class Announce
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $coverImage;
+    
+    /**
+     * Undocumented variable
+     *@Vich\UploadableField(mapping="cover_image", fileNameProperty="coverImage")
+     * @var File
+     */
+    private $coverImageFile;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -80,6 +93,12 @@ class Announce
      * @ORM\Column(type="string", length=255)
      */
     private $introduction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
+     */
+    private $user;
+
 
     public function __construct()
     {
@@ -175,6 +194,31 @@ class Announce
 
         return $this;
     }
+    /**
+     * Undocumented function
+     *
+     * @return File|null
+     */
+    public function getCoverImageFile(): ?File
+    {
+        return $this->coverImageFile;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param File $coverImageFile
+     * @return void
+     */
+    public function setCoverImageFile(File $coverImageFile = null)
+    {
+        $this->coverImageFile = $coverImageFile;
+
+        if(null !== $coverImageFile){
+            $this->updated = new DateTime();
+        }
+
+    }
 
     public function getRooms(): ?int
     {
@@ -205,11 +249,13 @@ class Announce
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -283,4 +329,18 @@ class Announce
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    
 }

@@ -6,6 +6,7 @@ use App\Entity\Announce;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,15 +40,19 @@ class AnnounceType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('coverImage',TextType::class)
+            ->add('coverImage',FileType::class,[
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "saisir l'URL", 'class' => 'form-control'
+                ]
+            ])
             ->add('rooms',IntegerType::class,[
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add('isAvailable',CheckboxType::class)
-
-            ->add('createdAt',DateType::class)
             
             ->add('introduction',TextType::class,[
                 "attr" => [

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin", name="app_admin")
      */
     public function index(): Response
     {
@@ -30,6 +30,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Annonces', 'fas fa-newspaper', Announce::class);
-        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linktoRoute('Page Accueil', 'fas fa-home', 'app_home');
     }
 }

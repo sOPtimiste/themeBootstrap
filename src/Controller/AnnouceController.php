@@ -24,7 +24,7 @@ class AnnouceController extends AbstractController
     public function index(AnnounceRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
 
-        $announces = $repo->findAll();
+        $announces = $repo->findBy([],['id' => 'DESC']);
 
         $announces = $paginator->paginate(
             $announces, // Requête contenant les données à paginer (ici nos articles)

@@ -5,48 +5,51 @@
 
 {% block body %}
 
-<div class="container mt-5">{# Container debut #}
-{# Jumbotron #}
-  <div class="jumbotron">
-      <h1 class="display-3">Hello, world!</h1>
-      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-      </p>
-  </div>
-{# Fin Jumbotron #}
-      <h2 class="my-5">Les dernieres annonces...</h2>
-<div class="row">{# card bigin #}
-      {% for item in 0..20 %}
-        
-      
-        <div class="col-md-4">
-          <div class="card mb-3">
-            <h4 class="card-header">2 Chambres à 30 000 F / mois</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-              <rect width="100%" height="100%" fill="#868e96"></rect>
-              <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-            </svg>
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <div class="card-body">
-              <a href="#" class="card-link btn btn-primary">Détails...</a>
-            </div>
-            <div class="card-footer text-muted text-center" >
-              il ya 2 jours
-              <i class="fas fa-map-marker-alt"></i>
-               <strong>Mariste</strong>
-            </div>
-          </div>
+<div class="container-fluid">
+    <div class="row pt-1 pb-1">
+        <div class="col-lg-12">
+            <h4 class="text-center">Connaissez-vous les règles à suivre pour louer un appartement ou une chambre ?</h4>
+            <h6 class="text-center">Une annonce immobilière, pour être efficace, doit être précise, concise et fidèle à la réalité. L’objectif : l’internaute doit y trouver immédiatement les informations essentielles sur le bien que vous vendez ou que vous louez.</h6>
         </div>
-        {% endfor %}
-{# card end #}
     </div>
-</div>{# container end #}
 
+    <div class="jumbotron mt-3">
+            <h1 class="display-3">Bienvenue sur KAY DEUK</h1>
+            <p class="lead">Nous mettons en relation les voyageurs et les proprietaires qui veulent profiter d'opportunities
+            et gagner de l'argent en proposant leur bien à la location</p>
+            <hr class="my-4">
+            <p>Vous etes voyageurs ? Et vous voulez voir ou vous pourrez loger pour votre prochaine deplacement ? .</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{path('app_annouce_index')}}" role="button">Voir nos annonces</a>
+            </p>
+        </div>
+</div>
+
+<h2 class="h1 my-5" >Nos proprietaires stars</h2>
+        <div class="row">
+
+        {% for announce in announces %}
+            <div class="col mb-3">
+                <div class="card border-secondary">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                             {{ announce.title }} 
+                        </h4>
+                        
+                        <hr>
+
+                        <div class="card-text">
+                            <img src="{{vich_uploader_asset(announce,'coverImageFile')}}" alt="Image de {{ announce.title }}" class="float-left mr-3">
+                            <p>{{announce.introduction}}</p>
+                            <a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-success float-right"> En savoir plus</a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+        {% endfor %}
+
+        </div>
 
 
 {% endblock %}

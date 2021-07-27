@@ -95,7 +95,7 @@ class Announce
     private $introduction;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces",cascade={"persist","remove"})
      */
     private $user;
 

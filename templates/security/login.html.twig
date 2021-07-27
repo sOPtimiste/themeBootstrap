@@ -3,7 +3,12 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
+
+<div class="jumbotron my-3">
+      <h1 class="display-4">AUTHENTIFICATION</h1>
+      <p class="lead">Bienvenue sur l'interface d'authentification de votre site d'annonce.</p>
+  </div>
+<form method="post" class="container my-5">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -35,7 +40,7 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
+    <button class="btn btn-lg btn-primary my-3" type="submit">
         Sign in
     </button>
 </form>

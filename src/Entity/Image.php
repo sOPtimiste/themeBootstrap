@@ -2,11 +2,17 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 use App\Repository\ImageRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @Vich\Uploadable
  */
 class Image
 {
@@ -22,6 +28,13 @@ class Image
      */
     private $imageUrl;
 
+
+     /**
+     * Undocumented variable
+     *@Vich\UploadableField(mapping="image_url", fileNameProperty="imageUrl")
+     * @var File
+     */
+    private $imageFile;
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -48,6 +61,32 @@ class Image
         $this->imageUrl = $imageUrl;
 
         return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param File $imageFile
+     * @return void
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+
+        if(null !== $imageFile){
+            $this->updated = new DateTime();
+        }
+
     }
 
     public function getDescription(): ?string

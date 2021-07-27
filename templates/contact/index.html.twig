@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+
+       
+<div
+		class="container mt-4">     
+		{# begin form commentaire #}
+         {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+<div class="jumbotron my-3">
+      <h1 class="display-4">LAISSER VOTRE CONTACT</h1>
+      <p class="lead">Bienvenue sur l'interface de la page du contact de votre site d'annonce.</p>
+  </div>
+        
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-md-4">{{ form_row(form.name) }}</div>
+			<div class="col-md-4">{{ form_row(form.email) }}</div>
+		</div>
+		<div class="row my-2">
+			<div class="col-md-12">{{ form_row(form.message) }}</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<button type="submit" class="btn btn-primary btn-md">Contacter moi</button>
+			</div>
+		</div>
+		{{ form_end(form)}}
+	</div>
+{% endblock %}

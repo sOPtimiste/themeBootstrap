@@ -3,10 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use App\Entity\Image;
 use App\Entity\Comment;
 use App\Entity\Announce;
-use Cocur\Slugify\Slugify;
+use App\Entity\Image;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -52,7 +51,7 @@ class AppFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setPhoneNumber('772931098');
+            $user->setPhoneNumber(mt_rand(9,11));
             $user->setStatus(mt_rand(0,1));
 
             $announce->setUser($user);
@@ -69,10 +68,10 @@ class AppFixtures extends Fixture
                 $announce->addComment($comment);
             }
 
-            for($k = 0; $k < mt_rand(1,4); $k++){
+            for($k = 0; $k < mt_rand(1,3); $k++){
                 $image = new Image();
                 $image->setImageUrl("house3.jpg");
-                $image->setDescription($faker->sentence());
+                $image->setDescriptionImg($faker->sentence());
                 
     
                 //$manager->persist($image);

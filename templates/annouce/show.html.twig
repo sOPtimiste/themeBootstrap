@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-sm-8 mb-4">
 				<div class="card">
-					<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile')}}" alt="Annonce 1"/>
+					<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile')| imagine_filter('miniature')}}" alt="Annonce 1"/>
 					<div class="card-body">
 						<h5 class="card-title">{{announce.title}}</h5>
 						<p class="card-text">
@@ -27,7 +27,7 @@
 							: ref 1552</span>
 						<span class="float-left btn btn-sm disabled">Depuis:
 							{{announce.createdAt|format_datetime('full','short',locale='fr')}}</span>
-						<a href="#" class="btn btn-sm btn-primary float-right">Réserver</a>
+						<a href="{{path('app_contact')}}" class="btn btn-sm btn-primary float-right">Réserver</a>
 					</div>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 					<div class="card-body">
 						<h5 class="card-title">The Customer</h5>
 						<p class="card-text">
-							{{announce.description}}.
+							{{announce.introduction}}.
 						</p>
 					</div>
 					<div class="list-group">
@@ -74,9 +74,9 @@
 				<div class="col-4 col-md-4 col-lg-4">
 					<div class="card-deck">
 						<div class="card">
-							<img class="card-img-top" src="{{vich_uploader_asset(image,'imageFile')}}" alt="Card image cap">
+							<img class="card-img-top" src="{{vich_uploader_asset(image,'imageFile') | imagine_filter('miniature')}}" alt="Card image cap">
 							<div class="card-body">
-								{#<p class="card-text">{{image.description}}</p>#}
+								<p class="card-text">{{image.descriptionImg}}</p>
 
 							</div>
 						</div>

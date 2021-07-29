@@ -36,13 +36,13 @@ class Image
      */
     private $imageFile;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=false)
      */
-    private $description;
+    private $descriptionImg;
 
     /**
      * @ORM\ManyToOne(targetEntity=Announce::class, inversedBy="images")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(onDelete="CASCADE",nullable=false)
      */
     private $announce;
 
@@ -89,14 +89,14 @@ class Image
 
     }
 
-    public function getDescription(): ?string
+    public function getDescriptionImg(): ?string
     {
-        return $this->description;
+        return $this->descriptionImg;
     }
 
-    public function setDescription(string $description): self
+    public function setDescriptionImg(string $descriptionImg): self
     {
-        $this->description = $description;
+        $this->descriptionImg = $descriptionImg;
 
         return $this;
     }
@@ -111,5 +111,10 @@ class Image
         $this->announce = $announce;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->imageUrl;
     }
 }

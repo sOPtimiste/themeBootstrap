@@ -14,7 +14,7 @@ class HomeController extends AbstractController
      */
     public function index(AnnounceRepository $repo): Response
     {
-        $announces = $repo->findBy([],['id' => 'DESC']);
+        $announces = $repo->findThreeAnnounce(3);
 
         return $this->render('home/index.html.twig', [
             'announces' => $announces

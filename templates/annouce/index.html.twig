@@ -12,17 +12,6 @@
 			Annonces</h1>
 	</center>
 
-
-	{% for message in app.flashes('notice') %}
-
-		<div class="alert alert-success">
-
-			{{ message }}
-		</div>
-
-	{% endfor %}
-
-
 	<div
 		class="container my-5">
 		{# start container #}
@@ -39,7 +28,7 @@
 					<div
 						class="card" style="width: 18rem">
 						{# start card#}
-						<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile')}}" alt="{{announce.title}}"/>
+						<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile') | imagine_filter('miniature')}}" alt="{{announce.title}}"/>
 						<div
 							class="card-body">
 							{# satart card-body  #}

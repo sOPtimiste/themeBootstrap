@@ -9,6 +9,6 @@ vich_uploader:
 
 
         image_url:
-            uri_prefix:  /uploads/images
-            upload_destination:  '%kernel.project_dir%/public/uploads/images'
+            uri_prefix:  /images/covers
+            upload_destination:  '%kernel.project_dir%/public//images/covers'
             namer: Vich\UploaderBundle\Naming\UniqidNamer

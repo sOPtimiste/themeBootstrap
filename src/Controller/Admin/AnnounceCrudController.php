@@ -13,9 +13,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class AnnounceCrudController extends AbstractCrudController
 {
@@ -31,21 +31,24 @@ class AnnounceCrudController extends AbstractCrudController
             TextField::new('title'),
             MoneyField::new('price')->setCurrency('EUR'),
             TextField::new('address'),
-            TextEditorField::new('description')->onlyOnForms(),
-            TextField::new('introduction'),
+            TextareaField::new('description')->onlyOnForms(),
+            TextField::new('introduction')->onlyOnForms(),
             ImageField::new('coverImage')
+                ->onlyOnForms()
                 ->setBasePath('images/covers')
                 ->setUploadDir('public/images/covers')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             BooleanField::new('isAvailable'),
+            IntegerField::new('rooms'),
             DateField::new('createdAt')->hideOnForm(),
             CollectionField::new('images')
                 ->setEntryType(ImageType::class)
                 ->onlyOnForms(),
             CollectionField::new('images')
                 ->setEntryType(ImageType::class)
-                ->onlyOnDetail()
+                ->setTemplatePath('images.html.twig')
+                ->onlyOnDetail()  
         ];
     }
 

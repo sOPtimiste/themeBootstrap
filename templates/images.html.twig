@@ -1,0 +1,11 @@
+<div class="form-widget">
+
+
+   {% for image in field.value %}
+
+        <a href="#" class="ea-lightbox-thumbnail ">
+            <img src="{{vich_uploader_asset(image,'imageFile')| imagine_filter('miniature')}}" alt="" srcset="">
+        </a>
+        
+    {% endfor %}
+</div>

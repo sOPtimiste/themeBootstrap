@@ -19,22 +19,20 @@ class AnnounceRepository extends ServiceEntityRepository
         parent::__construct($registry, Announce::class);
     }
 
-    // /**
-    //  * @return Announce[] Returns an array of Announce objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Announce[] Returns an array of Announce objects
+      */
+    
+    public function findThreeAnnounce($limit)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Announce

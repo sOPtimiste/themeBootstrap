@@ -17,6 +17,7 @@ class HomeController extends AbstractController
         $announces = $repo->findThreeAnnounce(3);
 
         return $this->render('home/index.html.twig', [
+            
             'announces' => $announces
         
         ]);

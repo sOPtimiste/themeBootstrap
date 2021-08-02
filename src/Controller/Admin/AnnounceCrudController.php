@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -48,7 +49,8 @@ class AnnounceCrudController extends AbstractCrudController
             CollectionField::new('images')
                 ->setEntryType(ImageType::class)
                 ->setTemplatePath('images.html.twig')
-                ->onlyOnDetail()  
+                ->onlyOnDetail(), 
+            AssociationField::new('user')->hideOnForm() 
         ];
     }
 
@@ -63,7 +65,7 @@ class AnnounceCrudController extends AbstractCrudController
         return $actions
 
             ->add(Crud::PAGE_INDEX,Action::DETAIL)->update(Crud::PAGE_INDEX,Action::DETAIL,function (Action $action){
-                return $action->setIcon("fas fa-info-circle")->setLabel(false);
+                return $action->setIcon("fas fa-eye")->setLabel(false);
             })
 
 
@@ -78,12 +80,21 @@ class AnnounceCrudController extends AbstractCrudController
             return $action->setIcon("fas fa-trash-alt")->setLabel(false);
             
         })
-        ->setPermission(Action::EDIT, 'ROLE_ADMIN')
-        ->setPermission(Action::DELETE, 'ROLE_ADMIN')
+        ->setPermission(Action::EDIT, 'ROLE_USER')
+        ->setPermission(Action::DELETE, 'ROLE_USER')
         ;
 
         
 
+    }
+
+    public function createEntity(string $entityFqcn)
+    {
+        $announce = new Announce();
+
+        $announce->setUser($this->getUser());
+
+        return $announce;
     }
     
 }

@@ -7,10 +7,17 @@ use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
+    private $flash;
+    public function __construct(FlashBagInterface $flash)
+    {
+        $this->flash = $flash;
+        
+    }
     /**
      * @Route("/contact", name="app_contact")
      */
@@ -31,7 +38,7 @@ class ContactController extends AbstractController
 
                 return $this->redirectToRoute('app_contact');
 
-                $this->addFlash('notice', 'votre message a bien enregistré !!');
+                $this->flash->add('success', 'votre message a bien envoyé,merci !!');
 
             }
 

@@ -10,6 +10,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use Proxies\__CG__\App\Entity\User as EntityUser;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
@@ -45,6 +46,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         if (!($entity instanceof User)) {
             return;
         }
+        
         $this->setPassword($entity);
     }
 
@@ -56,6 +58,15 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
         $this->setPassword($entity);
+        $this->setUser($entity);
+
+    }
+
+    public function setUser(User $entity): void
+    {
+        $user = $entity->getId();
+        $this->entityManager->persist($entity,$user);
+        $this->entityManager->flush();
     }
 
     public function setPassword(User $entity): void
@@ -84,6 +95,9 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $slug = $this->slugger->slug($entity->getTitle());
         $entity->setSlug($slug);
 
+        $user = $this->security->getUser();
+        $entity->setUser($user);
+
         //$now = new DateTime('now');
         //$entity->setCreatAt($now);
 
@@ -92,6 +106,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
 
         $user = $this->security->getUser();
+
 
         $entity->setUser($user);
     }

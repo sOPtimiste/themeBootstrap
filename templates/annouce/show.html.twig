@@ -36,14 +36,18 @@
 				<div class="card text-center" style="width: 18rem">
 					<img style="width: 8em; height:8em;" class="card-img-top rounded-circle align-self-center" src="https://api.randomuser.me/portraits/men/30.jpg" alt="Card image cap"/>
 					<div class="card-body">
-						<h5 class="card-title">The Customer</h5>
+						{% if app.user %}
+							<h5 class="card-title">{{app.user.firstname}}</h5>
+						{% endif %}
+						<h5 class="card-title">Visiteur</h5>
 						<p class="card-text">
 							{{announce.introduction}}.
 						</p>
 					</div>
 					<div class="list-group">
 						<a href="#" class="list-group-item list-group-item-action bg-primary text-white">
-							<i class="fas fa-mobile-alt mr-2"></i>77181 88 77</a>
+							{% if app.user %}<i class="fas fa-mobile-alt mr-2"></i>{{app.user.phoneNumber}}</a>{% endif %}
+							<i class="fas fa-mobile-alt mr-2"></i>774567897</a>
 						<span class="list-group-item list-group-item-action">
 							<a href="#">
 								<i class="fab fa-facebook-square fa-2x text-primary mr-1"></i>

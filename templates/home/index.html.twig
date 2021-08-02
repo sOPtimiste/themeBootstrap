@@ -1,51 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 
 {% block body %}
 
-<div class="container-fluid">
-    
+	<div class="container-fluid my-5">
+		<h2 class="h1">Nos proprietaires stars</h2>
+		<p>Nos trois dernieres publications</p>
+		<div class="row">
 
-    <div class="jumbotron mt-5">
-            <h1 class="display-3">Bienvenue sur KAY DEUK</h1>
-            <p class="lead">Nous mettons en relation les voyageurs et les proprietaires qui veulent profiter d'opportunities
-            et gagner de l'argent en proposant leur bien à la location</p>
-            <hr class="my-4">
-            <img src="{{asset('/images/bg.jpeg')}}" alt="bg" class="img-fluid thumbnail" style="width: 100%;  height: 500px" srcset="">
-            <p>Vous etes voyageurs ? Et vous voulez voir ou vous pourrez loger pour votre prochaine deplacement ? .</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="{{path('app_annouce_index')}}" role="button">Voir nos annonces</a>
-            </p>
-        </div>
+			{% for announce in announces %}
+				{% if announce.isAvailable %}
+					<div class="col mb-3">
+						<div class="card border-secondary">
+							<div class="card-body">
+								<h4 class="card-title">
+									{{ announce.title }}
+								</h4>
 
+								<hr>
 
-<h2 class="h1 my-5" >Nos proprietaires stars</h2>
-        <div class="row">
+								<div class="card-text">
+									<img src="{{vich_uploader_asset(announce,'coverImageFile')| imagine_filter('miniature')}}" alt="Image de {{ announce.title }}" class="float-left mr-3">
+									<p>{{announce.introduction}}</p>
+									<a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-success float-right">
+										En savoir plus</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% else %}
+						<p>Pas d'annonces disponibles pour le moment</p>
+				{% endif %}
 
-        {% for announce in announces %}
-            <div class="col mb-3">
-                <div class="card border-secondary">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                             {{ announce.title }} 
-                        </h4>
-                        
-                        <hr>
+			{% endfor %}
 
-                        <div class="card-text">
-                            <img src="{{vich_uploader_asset(announce,'coverImageFile')| imagine_filter('miniature')}}" alt="Image de {{ announce.title }}" class="float-left mr-3">
-                            <p>{{announce.introduction}}</p>
-                            <a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-success float-right"> En savoir plus</a>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-
-        {% endfor %}
-
-        </div>
-
-</div>
+		</div>
+	</div>
 {% endblock %}

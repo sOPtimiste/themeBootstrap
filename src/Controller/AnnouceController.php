@@ -7,7 +7,6 @@ use App\Entity\Comment;
 use App\Form\AnnounceType;
 use App\Form\CommentType;
 use App\Repository\AnnounceRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +22,6 @@ class AnnouceController extends AbstractController
      */
     public function index(AnnounceRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
-
         $announces = $repo->findBy([],['id' => 'DESC']);
 
         $announces = $paginator->paginate(

@@ -7,20 +7,20 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-						           and uncomment the following Encore helpers to start using Symfony UX #}
+								           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
+			<link rel="stylesheet" href="css/style.css">
 
 			{#<link rel="stylesheet" href="css/bootstrap.min.css">#}
 
 			{#{{ encore_entry_link_tags('app') }}#}
 			<!-- CSS only -->
 			<!-- CSS only -->
-		{#
-			 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> 
-			#}
-			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-			<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+			{#
+						 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> 
+						#}
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous"> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+			
 
 		{% endblock %}
 
@@ -31,7 +31,7 @@
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="#">Logo</a>
+					<a class="navbar-brand" href="#"><img src="{{asset('images/logo.jpeg')}}" alt="logo" width="60x" height="30px" srcset=""></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -49,6 +49,13 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{path('app_contact')}}">Contact</a>
 							</li>
+							{% if app.user %}
+								{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_admin')}}">Gestion Administration</a>
+							</li>
+								{% endif %}
+							{% endif %}
 
 
 							<li class="nav-item">
@@ -77,6 +84,14 @@
 			</nav>
 		</header>
 		<main>
+			<div class="jumbotron my-5">
+				<h1 class="display-3">Bienvenue sur KAY DEUK</h1>
+
+				<p>Vous etes voyageurs ? Et vous voulez voir ou vous pourrez loger pour votre prochaine deplacement ? .</p>
+				<p class="lead">
+					<a class="btn btn-primary btn-lg" href="{{path('app_annouce_index')}}" role="button">Voir nos annonces</a>
+				</p>
+			</div>
 			{% block body %}{% endblock %}
 		</main>
 

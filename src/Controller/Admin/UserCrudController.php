@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -33,7 +34,8 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstname')->hideOnIndex(),
             TextField::new('lastname')->hideOnIndex(),
             TelephoneField::new('phoneNumber')->hideOnIndex(),
-            BooleanField::new('status')
+            BooleanField::new('status'),
+            
             
         ];
     }
@@ -43,7 +45,7 @@ class UserCrudController extends AbstractCrudController
         return $actions
 
             ->add(Crud::PAGE_INDEX,Action::DETAIL)->update(Crud::PAGE_INDEX,Action::DETAIL,function (Action $action){
-                return $action->setIcon("fas fa-user")->setLabel(false);
+                return $action->setIcon("fas fa-eye")->setLabel(false);
             })
 
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {

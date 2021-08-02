@@ -4,16 +4,12 @@
 {% endblock %}
 
 {% block body %}
-
-
-	<center>
-		<h1>nous avons
-			{{announces| length}}
-			Annonces</h1>
-	</center>
-
+	<div class="container-fluid annonce">
+			<p class="lead">Ete vous pret à etre confortable avec nos locations moins chers</p>
+		</div>
 	<div
-		class="container my-5">
+		class="container  my-5">
+			
 		{# start container #}
 		<div
 			class="row">
@@ -21,35 +17,40 @@
 
 			{% for announce in announces %}
 
+				{% if announce.isAvailable %}
 
-				<div
-					class="col-sm-4 mb-4">
-					{# start col #}
+
 					<div
-						class="card" style="width: 18rem">
-						{# start card#}
-						<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile') | imagine_filter('miniature')}}" alt="{{announce.title}}"/>
+						class="col-sm-4 mb-4">
+						{# start col #}
 						<div
-							class="card-body">
-							{# satart card-body  #}
-							<h5 class="card-title">{{ announce.title }}</h5>
-							<p class="card-text">
-								{{ announce.description }}
-							</p>
-              
-							<hr/>
-							<span class="float-left btn btn-sm btn-outline-danger disabled">{{announce.price|number_format(0, ',', ' ') }}
-								FCFA</span>
-							<span class="float-left btn btn-sm text-center disabled">depuis
-								{{announce.createdAt|format_datetime('short','none',locale='fr')}}</span>
-							<a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-sm btn-primary float-right">Detail...</a>
+							class="card" style="width: 18rem">
+							{# start card#}
+							<img class="card-img-top" src="{{vich_uploader_asset(announce,'coverImageFile') | imagine_filter('miniature')}}" alt="{{announce.title}}"/>
+							<div
+								class="card-body">
+								{# satart card-body  #}
+								<h5 class="card-title">{{ announce.title }}</h5>
+								<p class="card-text">
+									{{ announce.description }}
+								</p>
 
+								<hr/>
+								<span class="float-left btn btn-sm btn-outline-danger disabled">{{announce.price|number_format(0, ',', ' ') }}
+									FCFA</span>
+								<span class="float-left btn btn-sm text-center disabled">depuis
+									{{announce.createdAt|format_datetime('short','none',locale='fr')}}</span>
+								<a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-sm btn-primary float-right">Detail...</a>
+
+							</div>
+							{# end card-body #}
 						</div>
-						{# end card-body #}
+						{# end card #}
 					</div>
-					{# end card #}
-				</div>
-				{# end col #}
+					{# end col #}
+					{% else %}
+						<p>Pas d'annonces disponibles pour l'instant</p>
+				{% endif %}
 			{% endfor %}
 		</div>
 		{# end row #}
@@ -57,12 +58,12 @@
 
 	</div>
 	{# end container #}
-  {% block pagination %}	
-  <nav aria-label="Page navigation example">
-		  <ul class="pagination d-flex justify-content-center">
-			{{ knp_pagination_render(announces) }}
-	  	</ul>
-	</nav>
-  {% endblock %}
+	{% block pagination %}
+		<nav aria-label="Page navigation example">
+			<ul class="pagination d-flex justify-content-center">
+				{{ knp_pagination_render(announces) }}
+			</ul>
+		</nav>
+	{% endblock %}
 
 {% endblock %}

@@ -6,7 +6,7 @@
 {% block body %}
 
 	<div
-	
+
 		class="container my-5">
 		{# begin form commentaire #}
 
@@ -16,9 +16,10 @@
 		</div>
 		{% for message in app.flashes('success') %}
 
-			<div class="alert alert-success">
-
-				{{ message }}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>{{message}}</strong>
+				Bravo!!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 
 		{% endfor %}

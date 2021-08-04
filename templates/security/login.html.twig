@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<div class="jumbotron my-5">
+{#<div class="jumbotron my-5">
       <h1 class="display-4">AUTHENTIFICATION</h1>
       <p class="lead">Bienvenue sur l'interface d'authentification de votre site d'annonce.</p>
-  </div>
+  </div>#}
 <form method="post" class="container my-5">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -43,5 +43,6 @@
     <button class="btn btn-lg btn-primary my-3" type="submit">
         Connexion
     </button> 
+    <p>si vous n'avez pas de compte  <a href="{{path('app_register')}}">cliquez ici</a></p>
 </form>
 {% endblock %}

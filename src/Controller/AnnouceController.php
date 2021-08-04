@@ -38,7 +38,7 @@ class AnnouceController extends AbstractController
     }
 
     /**
-     * @Route("/announce/{id<[0-9]+>}",name="app_announce_show")
+     * @Route("/announce/{slug}",name="app_announce_show")
      */
 
     public function show(Announce $announce,Request $request): Response
@@ -59,7 +59,7 @@ class AnnouceController extends AbstractController
 
         return $this->redirectToRoute('app_announce_show',[
             
-            'id' => $announce->getId()
+            'slug' => $announce->getSlug()
         ]);
     }
 

@@ -7,6 +7,15 @@
 {% block body %}
 
 	<div class="container-fluid my-5">
+		{% for message in app.flashes('success') %}
+
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>{{message}}</strong>
+				Bravo!!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
+		{% endfor %}
 		<h2 class="h1">Nos proprietaires stars</h2>
 		<p>Nos trois dernieres publications</p>
 		<div class="row">
@@ -25,14 +34,14 @@
 								<div class="card-text">
 									<img src="{{vich_uploader_asset(announce,'coverImageFile')| imagine_filter('miniature')}}" alt="Image de {{ announce.title }}" class="float-left mr-3">
 									<p>{{announce.introduction}}</p>
-									<a href="{{path('app_announce_show',{id: announce.id})}}" class="btn btn-success float-right">
+									<a href="{{path('app_announce_show',{slug: announce.slug})}}" class="btn btn-success float-right">
 										En savoir plus</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					{% else %}
-						<p>Pas d'annonces disponibles pour le moment</p>
+				{% else %}
+					<p>Pas d'annonces disponibles pour le moment</p>
 				{% endif %}
 
 			{% endfor %}

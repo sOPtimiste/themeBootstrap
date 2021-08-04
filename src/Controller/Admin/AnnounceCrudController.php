@@ -4,11 +4,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\Announce;
 use App\Form\ImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -17,6 +22,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use PhpParser\Node\Stmt\Label;
 
 class AnnounceCrudController extends AbstractCrudController
 {
@@ -25,13 +31,19 @@ class AnnounceCrudController extends AbstractCrudController
         return Announce::class;
     }
 
+
+   /* public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        
+    }*/
+
     
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
-            MoneyField::new('price')->setCurrency('EUR'),
-            TextField::new('address'),
+            TextField::new('title')->setLabel('Titre'),
+            MoneyField::new('price')->setCurrency('EUR')->setLabel('Prix'),
+            TextField::new('address')->setLabel('Adresse'),
             TextareaField::new('description')->onlyOnForms(),
             TextField::new('introduction')->onlyOnForms(),
             ImageField::new('coverImage')
@@ -40,8 +52,8 @@ class AnnounceCrudController extends AbstractCrudController
                 ->setUploadDir('public/images/covers')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
-            BooleanField::new('isAvailable'),
-            IntegerField::new('rooms'),
+            BooleanField::new('isAvailable')->setLabel('Statut'),
+            IntegerField::new('rooms')->setLabel('Nombre de chambres'),
             DateField::new('createdAt')->hideOnForm(),
             CollectionField::new('images')
                 ->setEntryType(ImageType::class)
@@ -50,14 +62,16 @@ class AnnounceCrudController extends AbstractCrudController
                 ->setEntryType(ImageType::class)
                 ->setTemplatePath('images.html.twig')
                 ->onlyOnDetail(), 
-            AssociationField::new('user')->hideOnForm() 
+            AssociationField::new('user')->hideOnForm()->setLabel('Utilisateur') 
         ];
     }
 
     public function configureCrud(Crud $crud): Crud
     {
        return $crud
-                ->setDefaultSort(['createdAt' => 'DESC']); 
+                ->setPageTitle(Crud::PAGE_INDEX, 'Liste des annonces')
+                ->setDefaultSort(['createdAt' => 'DESC'])
+            ; 
     }
 
     public function configureActions(Actions $actions): Actions
@@ -80,8 +94,6 @@ class AnnounceCrudController extends AbstractCrudController
             return $action->setIcon("fas fa-trash-alt")->setLabel(false);
             
         })
-        ->setPermission(Action::EDIT, 'ROLE_USER')
-        ->setPermission(Action::DELETE, 'ROLE_USER')
         ;
 
         
@@ -93,6 +105,7 @@ class AnnounceCrudController extends AbstractCrudController
         $announce = new Announce();
 
         $announce->setUser($this->getUser());
+        
 
         return $announce;
     }

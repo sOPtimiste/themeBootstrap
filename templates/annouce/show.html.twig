@@ -4,9 +4,7 @@
 {% endblock %}
 
 {% block body %}
-
-
-	<div class="container">
+	<div class="container-fluid annonce">
 		<div class="row mt-5">
 			<h6 class="display-4">Détails de l'annonce</h6>
 		</div>
@@ -37,7 +35,7 @@
 					<img style="width: 8em; height:8em;" class="card-img-top rounded-circle align-self-center" src="https://api.randomuser.me/portraits/men/30.jpg" alt="Card image cap"/>
 					<div class="card-body">
 						{% if app.user %}
-							<h5 class="card-title">{{app.user.firstname}}</h5>
+							<h5 class="card-title">{{app.user.firstname}} {{(app.user.annonce|length)}}</h5>
 						{% endif %}
 						<h5 class="card-title">Visiteur</h5>
 						<p class="card-text">
@@ -46,95 +44,98 @@
 					</div>
 					<div class="list-group">
 						<a href="#" class="list-group-item list-group-item-action bg-primary text-white">
-							{% if app.user %}<i class="fas fa-mobile-alt mr-2"></i>{{app.user.phoneNumber}}</a>{% endif %}
-							<i class="fas fa-mobile-alt mr-2"></i>774567897</a>
-						<span class="list-group-item list-group-item-action">
-							<a href="#">
-								<i class="fab fa-facebook-square fa-2x text-primary mr-1"></i>
-							</a>
-							<a href="#">
-								<i class="fab fa-whatsapp fa-2x text-success mr-1"></i>
-							</a>
-							<a href="#">
-								<i class="fab fa-twitter fa-2x text-primary mr-1"></i>
-							</a>
-							<a href="#">
-								<i class="fab fa-instagram fa-2x text-warning mr-1"></i>
-							</a>
-							<a href="#">
-								<i class="fab fa-youtube fa-2x text-danger"></i>
-							</a>
-						</span>
-					</div>
+							{% if app.user %}
+								<i class="fas fa-mobile-alt mr-2"></i>
+								{{app.user.phoneNumber}}</a>
+						{% endif %}
+						<i class="fas fa-mobile-alt mr-2"></i>774567897</a>
+					<span class="list-group-item list-group-item-action">
+						<a href="#">
+							<i class="fab fa-facebook-square fa-2x text-primary mr-1"></i>
+						</a>
+						<a href="#">
+							<i class="fab fa-whatsapp fa-2x text-success mr-1"></i>
+						</a>
+						<a href="#">
+							<i class="fab fa-twitter fa-2x text-primary mr-1"></i>
+						</a>
+						<a href="#">
+							<i class="fab fa-instagram fa-2x text-warning mr-1"></i>
+						</a>
+						<a href="#">
+							<i class="fab fa-youtube fa-2x text-danger"></i>
+						</a>
+					</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div
-		class="container my-5">
-		{#gerer plusieurs images#}
-		<div class="row">
-			{% for image in announce.images %}
-				<div class="col-4 col-md-4 col-lg-4">
-					<div class="card-deck">
-						<div class="card">
-							<img class="card-img-top" src="{{vich_uploader_asset(image,'imageFile') | imagine_filter('miniature')}}" alt="Card image cap">
-							<div class="card-body">
-								<p class="card-text">{{image.descriptionImg}}</p>
+</div>
+<div
+	class="container my-5">
+	{#gerer plusieurs images#}
+	<div class="row">
+		{% for image in announce.images %}
+			<div class="col-4 col-md-4 col-lg-4">
+				<p>Details des images</p>
+				<div class="card-deck">
+					<div class="card">
+						<img class="card-img-top" src="{{vich_uploader_asset(image,'imageFile') | imagine_filter('miniature')}}" alt="Card image cap">
+						<div class="card-body">
+							<p class="card-text">{{image.descriptionImg}}</p>
 
-							</div>
 						</div>
 					</div>
 				</div>
-			{% endfor %}
-		</div>
-	</div>
-
-	<div
-		class="container my-5">
-		{#Div pour afficher les commentaires#}
-		<div class="card">
-			<div class="card-header">
-				<h5 class="text-center">Commentaire</h5>
 			</div>
-			{% for comment in announce.comments %}
-				{% if comment| length > 0 %}
-					<div class="row">
-						<div class="col-12 col-md-12 col-lg-12">
-							<div class="alert  alert-info">
-								<h6>
-									{{comment.author}}
-									<u></u>
-									{{comment.email}}
-								</h6>
-								<p>{{comment.content}}</p>
-								<p>edité :
-									{{announce.createdAt|format_datetime('full','short',locale='fr')}}</p>
-							</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div
+	class="container my-5">
+	{#Div pour afficher les commentaires#}
+	<div class="card">
+		<div class="card-header">
+			<h5 class="text-center">Commentaire</h5>
+		</div>
+		{% for comment in announce.comments %}
+			{% if comment| length > 0 %}
+				<div class="row">
+					<div class="col-12 col-md-12 col-lg-12">
+						<div class="alert  alert-info">
+							<h6>
+								{{comment.author}}
+								<u></u>
+								{{comment.email}}
+							</h6>
+							<p>{{comment.content}}</p>
+							<p>edité :
+								{{announce.createdAt|format_datetime('full','short',locale='fr')}}</p>
 						</div>
 					</div>
-				{% endif %}
-			{% endfor %}
-		</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+<div
+	class="container mt-4">
+	{# begin form commentaire #}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-4">{{ form_row(form.author) }}</div>
+		<div class="col-md-4">{{ form_row(form.email) }}</div>
+	</div>
+	<div class="row my-2">
+		<div class="col-md-12">{{ form_row(form.content) }}</div>
 	</div>
 
-	<div
-		class="container mt-4">
-		{# begin form commentaire #}
-		{{ form_start(form) }}
-		<div class="row">
-			<div class="col-md-4">{{ form_row(form.author) }}</div>
-			<div class="col-md-4">{{ form_row(form.email) }}</div>
+	<div class="row">
+		<div class="col-md-4">
+			<button type="submit" class="btn btn-primary btn-md">Commenter</button>
 		</div>
-		<div class="row my-2">
-			<div class="col-md-12">{{ form_row(form.content) }}</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-4">
-				<button type="submit" class="btn btn-primary btn-md">Commenter</button>
-			</div>
-		</div>
-		{{ form_end(form)}}
 	</div>
-{% endblock %}
+	{{ form_end(form)}}
+</div>{% endblock %}

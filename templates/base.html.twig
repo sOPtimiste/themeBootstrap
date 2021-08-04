@@ -50,7 +50,7 @@
 								<a class="nav-link" href="{{path('app_contact')}}">Contact</a>
 							</li>
 							{% if app.user %}
-								{% if is_granted('ROLE_ADMIN') %}
+								{% if is_granted('ROLE_USER') %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{path('app_admin')}}">Gestion Administration</a>
 							</li>
@@ -71,7 +71,7 @@
 							</ul>
 							<ul class="navbar-nav ml-auto">
 								<li class="nav-item">
-									<a class="nav-link" href="#">Inscription</a>
+									<a class="nav-link" href="{{path('app_register')}}">Inscription</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{path('app_login')}}">Connexion</a>

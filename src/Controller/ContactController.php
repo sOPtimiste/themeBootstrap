@@ -35,10 +35,13 @@ class ContactController extends AbstractController
                 $em->persist($contact);
 
                 $em->flush();
+                
+                $this->addFlash(
+                    'success',
+                    'votre message a été bien envoyé,merci !!'
+                );
 
                 return $this->redirectToRoute('app_contact');
-
-                $this->flash->add('success', 'votre message a bien envoyé,merci !!');
 
             }
 

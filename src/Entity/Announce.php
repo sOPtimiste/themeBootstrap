@@ -188,7 +188,7 @@ class Announce
         return $this->coverImage;
     }
 
-    public function setCoverImage(string $coverImage): self
+    public function setCoverImage($coverImage): self
     {
         $this->coverImage = $coverImage;
 

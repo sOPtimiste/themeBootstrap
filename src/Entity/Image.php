@@ -24,7 +24,7 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable = "true")
      */
     private $imageUrl;
 
@@ -56,7 +56,7 @@ class Image
         return $this->imageUrl;
     }
 
-    public function setImageUrl(string $imageUrl): self
+    public function setImageUrl($imageUrl): self
     {
         $this->imageUrl = $imageUrl;
 
@@ -113,8 +113,4 @@ class Image
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->imageUrl;
-    }
 }

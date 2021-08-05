@@ -16,8 +16,8 @@
 			</div>
 
 		{% endfor %}
-		<h2 class="h1">Nos proprietaires stars</h2>
-		<p>Nos trois dernieres publications</p>
+		<h2 class="h1"><span class="badge rounded-pill bg-info text-dark">Nos proprietaires stars</span></h2>
+		<span class="badge bg-primary my-2">Nos trois dernieres publications</span>
 		<div class="row">
 
 			{% for announce in announces %}
@@ -34,7 +34,7 @@
 								<div class="card-text">
 									<img src="{{vich_uploader_asset(announce,'coverImageFile')| imagine_filter('miniature')}}" alt="Image de {{ announce.title }}" class="float-left mr-3">
 									<p>{{announce.introduction}}</p>
-									<a href="{{path('app_announce_show',{slug: announce.slug})}}" class="btn btn-success float-right">
+									<a href="{{path('app_announce_show',{slug: announce.slug})}}" class="btn btn-outline-primary float-right">
 										En savoir plus</a>
 								</div>
 							</div>

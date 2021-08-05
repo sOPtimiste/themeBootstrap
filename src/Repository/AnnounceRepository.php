@@ -33,6 +33,15 @@ class AnnounceRepository extends ServiceEntityRepository
         ;
     }
 
+   
+     public function getCountAnnounce()
+     {
+         $queryBuilder = $this->createQueryBuilder('a');
+         $queryBuilder->select('COUNT(a.id) as value');
+
+         return $queryBuilder->getQuery()->getOneOrNullResult();
+     }
+
 
     /*
     public function findOneBySomeField($value): ?Announce

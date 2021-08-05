@@ -24,7 +24,9 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des Utilisateurs');
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des Utilisateurs')
+            //->setEntityPermission($this->getEntityFqcn($this->getUser()))
+            ;
     }
 
 
@@ -41,8 +43,8 @@ class UserCrudController extends AbstractCrudController
                     [
                         'entry_options' => [
                             'choices'  => [
-                                'ROLE_USER'    => 'Utilisateur',
-                                'ROLE_ADMIN' => 'Administrateur',
+                                'ROLE_USER'    => 'ROLE_USER',
+                                'ROLE_ADMIN' => 'ROLE_ADMIN',
                             ]
 
                         ],

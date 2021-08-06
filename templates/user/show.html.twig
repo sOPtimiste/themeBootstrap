@@ -1,0 +1,66 @@
+{% extends 'user.html.twig' %}
+
+{% block title %}Announce
+{% endblock %}
+
+{% block body %}
+	<div class="grix xs4 container">
+		<h1>Announce</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ announce.id }}</td>
+				</tr>
+				<tr>
+					<th>Title</th>
+					<td>{{ announce.title }}</td>
+				</tr>
+				<tr>
+					<th>Slug</th>
+					<td>{{ announce.slug }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ announce.description }}</td>
+				</tr>
+				<tr>
+					<th>Price</th>
+					<td>{{ announce.price }}</td>
+				</tr>
+				<tr>
+					<th>Address</th>
+					<td>{{ announce.address }}</td>
+				</tr>
+				<tr>
+					<th>CoverImage</th>
+					<td>{{ announce.coverImage }}</td>
+				</tr>
+				<tr>
+					<th>Rooms</th>
+					<td>{{ announce.rooms }}</td>
+				</tr>
+				<tr>
+					<th>IsAvailable</th>
+					<td>{{ announce.isAvailable ? 'Yes' : 'No' }}</td>
+				</tr>
+				<tr>
+					<th>CreatedAt</th>
+					<td>{{ announce.createdAt ? announce.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+				</tr>
+				<tr>
+					<th>Introduction</th>
+					<td>{{ announce.introduction }}</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+
+		<a href="{{ path('user_index') }}">Retour</a>
+
+		<a href="{{ path('user_edit', {'id': announce.id}) }}">edit</a>
+
+		{{ include('user/_delete_form.html.twig') }}
+	
+{% endblock %}

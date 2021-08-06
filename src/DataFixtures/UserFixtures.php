@@ -22,7 +22,12 @@ class UserFixtures extends Fixture
     {
          $user = new User();
          $user->setEmail('sall@sall.com');
-         $user->setUsername('op2');
+         $user->setUsername('optimiste');
+         $user->setRoles(['ROLE_ADMIN','ROLE_USER']);
+         $user->setFirstname('serigne Mbacke');
+         $user->setLastname('SALL');
+         $user->setPhoneNumber('77453456');
+         $user->setStatus(1);
 
          $user->setPassword($this->passwordHasher->hashPassword(
                         $user,

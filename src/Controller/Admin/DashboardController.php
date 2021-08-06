@@ -82,7 +82,7 @@ class DashboardController extends AbstractDashboardController
             ->setMenuItems([
                 MenuItem::linkToLogout('Deconnexion','fa fas-sign-out','app-logout')
             ])
-            ->setGravatarEmail($user->getUserIdentifier())
+            //->setGravatarEmail($user->getUserIdentifier())
             ->displayUserAvatar(true)
 
 

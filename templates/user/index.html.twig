@@ -1,0 +1,99 @@
+{% extends 'user.html.twig' %}
+
+{% block title %}Profil de
+			{{app.user.firstname}}
+			{{ app.user.firstname }}
+{% endblock %}
+
+{% block body %}
+	<div class="grix xs4 container">
+		{% for message in app.flashes('message') %}
+			<div class="col xs4">
+				<div class="p-3 my-2 rounded-2 success">{{ message }}</div>
+			</div>
+		{% endfor %}
+		<div class="col-xs4 display-4">Profil de
+			{{app.user.firstname}}
+			{{ app.user.firstname }}</div>
+
+		<div class="col-xs1">Nom :</div>
+		<div class="col-xs3">{{ app.user.lastname }}</div>
+
+		<div class="col-xs1">Prenom :</div>
+		<div class="col-xs3">{{ app.user.firstname }}</div>
+
+		<div class="col-xs1">Email :</div>
+		<div class="col-xs3">{{ app.user.email }}</div>
+
+		<div class="col-xs1">TElephone :</div>
+		<div class="col-xs3">{{ app.user.phoneNumber }}</div>
+
+		<div class="col-xs1">Nom d'Utilisateur :</div>
+		<div class="col-xs3">{{ app.user.username }}</div>
+
+		<div class="col-xs4">
+			<a href="{{path('user_profile_edit',{id: app.user.id})}}" class="btn blue">Modifier le profil</a>
+			<a href="#" class="btn blue">Modifier le mot de passe</a>
+		</div>
+		<div class="col-xs4">
+			<h1>Annonces de
+				{{app.user.firstname}}
+				{{ app.user.firstname }}
+				({{ app.user.annonces | length }})</h1>
+		</div>
+
+	</div>
+	<div class="responsive-table container">
+		<h1>Liste des Annonces</h1>
+
+		<table class="table striped ">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Slug</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th>Address</th>
+					<th>CoverImage</th>
+					<th>Rooms</th>
+					<th>IsAvailable</th>
+					<th>CreatedAt</th>
+					<th>Introduction</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for announce in app.user.annonces %}
+					<tr>
+						<td>{{ announce.id }}</td>
+						<td>{{ announce.title }}</td>
+						<td>{{ announce.slug }}</td>
+						<td>{{ announce.description }}</td>
+						<td>{{ announce.price }}</td>
+						<td>{{ announce.address }}</td>
+						<td>{{ announce.coverImage }}</td>
+						<td>{{ announce.rooms }}</td>
+						<td>{{ announce.isAvailable ? 'Yes' : 'No' }}</td>
+						<td>{{ announce.createdAt ? announce.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ announce.introduction }}</td>
+						<td>
+							<a href="{{ path('user_show', {'id': announce.id}) }}">
+								<li class="fas fa-eye"></li>
+							</a>
+							<a href="{{ path('user_edit', {'id': announce.id}) }}">
+								<li class="fas fa-edit"></li>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="12">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a role="button" class="btn btn-primary" href="{{ path('user_new') }}">Creer une Annonce</a>
+	</div>
+{% endblock %}

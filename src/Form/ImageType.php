@@ -14,7 +14,9 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile',VichFileType::class)
+            ->add('imageFile',VichFileType::class,[
+                
+            ])
             ->add('descriptionImg',TextareaType::class)
             
         ;
@@ -24,6 +26,7 @@ class ImageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Image::class,
+            "allow_extra_fields" => true,
         ]);
     }
 }

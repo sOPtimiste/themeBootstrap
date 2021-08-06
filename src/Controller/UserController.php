@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Announce;
+use App\Entity\Image;
 use App\Form\Announce1Type;
 use App\Form\EditProfileType;
 use App\Repository\AnnounceRepository;
@@ -32,8 +33,11 @@ class UserController extends AbstractController
     public function new(Request $request): Response
     {
         $user = $this->getUser();
+        $images = new Image();
         $announce = new Announce();
         $announce->setUser($user);
+        $announce->addImage($images);
+
         $form = $this->createForm(Announce1Type::class, $announce);
         $form->handleRequest($request);
 

@@ -55,12 +55,20 @@
 				</tr>
 			</tbody>
 		</table>
-    </div>
 
-		<a href="{{ path('user_index') }}">Retour</a>
+		<div class="col-xs3">
+				<a class="btn shadow-1 rounded-1 outline txt-blue" href="{{ path('user_index') }}">
+					<span class="outline-text">Retour</span>
+				</a>
+			</div>
+			<div class="col-xs4">
+				<a class="btn shadow-1 rounded-1 outline txt-blue" href="{{ path('user_edit', {'id': announce.id}) }}">
+					<span class="outline-text">Modifier</span>
+				</a>
+			</div>
+			<div class="col-xs4">{{ include('user/_delete_form.html.twig') }}</div>
+	</div>
 
-		<a href="{{ path('user_edit', {'id': announce.id}) }}">edit</a>
 
-		{{ include('user/_delete_form.html.twig') }}
-	
+
 {% endblock %}

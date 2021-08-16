@@ -20,14 +20,43 @@ class Announce1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',TextType::class)
-            ->add('description',TextareaType::class)
-            ->add('price',MoneyType::class)
-            ->add('address',TextType::class)
-            ->add('coverImageFile',VichImageType::class)
-            ->add('rooms',IntegerType::class)
-            ->add('isAvailable',CheckboxType::class)
-            ->add('introduction',TextType::class)
+            ->add('title',TextType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('description',TextareaType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('price',MoneyType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('address',TextType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('coverImageFile',VichImageType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('rooms',IntegerType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('isAvailable',CheckboxType::class,[
+            ])
+            ->add('introduction',TextType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
 
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,

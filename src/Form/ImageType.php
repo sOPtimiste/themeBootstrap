@@ -15,6 +15,9 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('imageFile',VichFileType::class,[
+                "attr" => [
+                    "class" => "form-control"
+                ]
                 
             ])
             ->add('descriptionImg',TextareaType::class)
